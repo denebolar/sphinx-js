@@ -12,10 +12,10 @@ def run_jsdoc(app):
     # See js_source_path relative from the directory containing conf.py:
     source_path = relpath(join(app.confdir, app.config.js_source_path))
 
-    # JSDoc defaults to utf8-encoded output.
     jsdoc_command = ['jsdoc', source_path, '-X']
     if app.config.jsdoc_config_path:
-        jsdoc_command.extend(['-c', app.config.jsdoc_config_path])
+        jsdoc_command.extend(['-c', relpath(join(app.confdir, app.config.jsdoc_config_path))])
+    # JSDoc defaults to utf8-encoded output.
     doclets = loads(check_output(jsdoc_command).decode('utf8'))
 
     # 2 doclets are made for classes, and they are largely redundant: one for
