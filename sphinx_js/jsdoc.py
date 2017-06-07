@@ -1,6 +1,6 @@
 from collections import defaultdict
 from json import loads
-from os.path import abspath, relpath, sep
+from os.path import abspath, relpath, join
 from subprocess import check_output
 
 from .parsers import path_and_formal_params, PathVisitor
@@ -9,8 +9,8 @@ from .suffix_tree import SuffixTree
 
 def run_jsdoc(app):
     """Run JSDoc across a whole codebase, and squirrel away its results."""
-    # Uses cwd, which Sphinx seems to set to the dir containing conf.py:
-    source_path = abspath(app.config.js_source_path)
+    # See js_source_path relative from the directory containing conf.py:
+    source_path = relpath(join(app.confdir, app.config.js_source_path))
 
     # JSDoc defaults to utf8-encoded output.
     jsdoc_command = ['jsdoc', source_path, '-X']
