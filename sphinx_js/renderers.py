@@ -91,7 +91,7 @@ class JsRenderer(object):
 
     def rst(self, partial_path, full_path, doclet, use_short_name=False):
         """Return rendered RST about an entity with the given name and doclet."""
-        dotted_name = partial_path[-1] if use_short_name else _dotted_path(partial_path)
+        dotted_name = partial_path[-1] if use_short_name else _dotted_path(partial_path, 'skip-index' in self._options)
 
         # Render to RST using Jinja:
         env = Environment(loader=PackageLoader('sphinx_js', 'templates'))
@@ -256,9 +256,9 @@ def _or_types(field):
     return '|'.join(field.get('type', {}).get('names', []))
 
 
-def _dotted_path(segments):
+def _dotted_path(segments, skip_index=False):
     """Convert a JS object path (``['dir/', 'file/', 'class#',
     'instanceMethod']``) to a dotted style that Sphinx will better index."""
-    segments_without_separators = [s[:-1] for s in segments[:-1]]
+    segments_without_separators = [s[:-1] for s in segments[:-1] if not skip_index or s[:-1] != 'index']
     segments_without_separators.append(segments[-1])
     return '.'.join(segments_without_separators)

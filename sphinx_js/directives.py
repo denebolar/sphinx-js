@@ -22,7 +22,8 @@ class JsDirective(Directive):
     final_argument_whitespace = True
 
     option_spec = {
-        'short-name': flag
+        'short-name': flag,
+        'skip-index': flag
     }
 
 
