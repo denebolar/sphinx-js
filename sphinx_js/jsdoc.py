@@ -1,5 +1,6 @@
 from collections import defaultdict
 from json import loads
+from sys import platform
 from os.path import abspath, relpath, join
 from subprocess import check_output
 
@@ -63,7 +64,15 @@ def doclet_full_path(d, base_dir, longname_field='longname'):
         for the long name of the object to emit a path to
     """
     meta = d['meta']
-    rel = relpath(meta['path'], base_dir)
+    path = meta['path']
+    if platform.upper() == 'CYGWIN':
+        # Check if path is absolute Windows style path
+        if path[1:3] == ':\\':
+            import ntpath
+            pathArray = path.split(ntpath.sep)
+            pathArray[0] = '/cygdrive/%s' % pathArray[0][0].lower()	# Keep drive letter
+            path = join(*pathArray);
+    rel = relpath(path, base_dir)
     if not rel.startswith(('../', './')) and rel not in ('..', '.'):
         # It just starts right out with the name of a folder in the cwd.
         rooted_rel = './%s' % rel
