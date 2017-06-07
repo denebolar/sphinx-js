@@ -11,15 +11,15 @@ path_and_formal_params = Grammar(r"""
     # Note that "." is a non-separator char only when used at the very front.
     path = maybe_cur_dir middle_segments name
 
-    # A name is a series of non-separator (not ~#/.), non-(, and backslashed chars.
-    name = ~r"(?:[^(/#~.\\]|\\.)+"
+    # A name is a series of non-separator (not ~#/:), non-(, and backslashed chars.
+    name = ~r"(?:[^(/#~:\\]|\\:)+"
 
-    sep = ~r"[#~/.]"
+    sep = ~r"[#~/:]"
     maybe_cur_dir = cur_dir?
     cur_dir = "./"
     middle_segments = name_and_sep*
     name_and_sep = name sep
-    formal_params = ~r".*"
+    formal_params = ~r":*"
     """)
 
 

@@ -82,7 +82,7 @@ def doclet_full_path(d, base_dir, longname_field='longname'):
     # Building up a string and then parsing it back down again is probably
     # not the fastest approach, but it means knowledge of path format is in
     # one place: the parser.
-    path = '%s/%s.%s' % (rooted_rel,
+    path = '%s/%s:%s' % (rooted_rel,
                          without_ending(meta['filename'], '.js'),
                          d[longname_field])
     return PathVisitor().visit(

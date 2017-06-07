@@ -152,16 +152,16 @@ Dodging Ambiguity With Pathnames
 
 If you have same-named objects in different files, use pathnames to disambiguate them. Here's a particularly long example::
 
-    .. js:autofunction:: ./some/dir/some/file.SomeClass#someInstanceMethod.staticMethod~innerMember
+    .. js:autofunction:: ./some/dir/some/file:SomeClass#someInstanceMethod.staticMethod~innerMember
 
-You may recognize the separators ``#.~`` from `JSDoc namepaths <http://usejsdoc.org/about-namepaths.html>`_; they work the same here.
+You may recognize some of the separators ``#:~`` from `JSDoc namepaths <http://usejsdoc.org/about-namepaths.html>`_; they work the same here.
 
 For conciseness, you can use any unique suffix, as long as it consists of complete path segments. These would all be equivalent to the above, assuming they are unique within your source tree::
 
     innerMember
     staticMethod~innerMember
     SomeClass#someInstanceMethod.staticMethod~innerMember
-    some/file.SomeClass#someInstanceMethod.staticMethod~innerMember
+    some/file:SomeClass#someInstanceMethod.staticMethod~innerMember
 
 Things to note:
 
