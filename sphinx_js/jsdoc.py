@@ -1,7 +1,7 @@
 from collections import defaultdict
 from json import loads
 from sys import platform
-from os.path import abspath, relpath, join
+from os.path import abspath, relpath, join, splitext
 from subprocess import check_output
 
 from .parsers import path_and_formal_params, PathVisitor
@@ -83,7 +83,7 @@ def doclet_full_path(d, base_dir, longname_field='longname'):
     # not the fastest approach, but it means knowledge of path format is in
     # one place: the parser.
     path = '%s/%s:%s' % (rooted_rel,
-                         without_ending(meta['filename'], '.js'),
+                         splitext(meta['filename'])[0],
                          d[longname_field])
     return PathVisitor().visit(
         path_and_formal_params['path'].parse(path))

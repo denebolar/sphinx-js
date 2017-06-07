@@ -170,6 +170,7 @@ Things to note:
 
     some/path\ with\ spaces/file.topLevelObject#instanceMember.staticMember\(with\(parens
 * Relative paths are relative to the ``js_source_path`` specified in the config. Absolute paths are not allowed.
+* File extensions are always dropped.
 
 Behind the scenes, sphinx-js will change all separators to dots so that...
 
